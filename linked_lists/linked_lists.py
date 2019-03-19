@@ -72,18 +72,10 @@ class SinglyLinkedList():
 
     def push_front(self, value):
         """Add a node containg value the front of the list.
-
-        >>> l = SinglyLinkedList()
-        >>> l.push_front('A')
-        >>> l.head.value == 'A'
-        True
-        >>> l.push_front('B')
-        >>> l.head.value == 'B'
-        True.
         """
         # if list is empty, simply initialize the node
         if self.is_empty():
-            """Check if the linked list has no nodes."""
+            # check if the linked list has no nodes
             self._head = NodeLinked(value)
             self._tail = self._head
 
@@ -94,16 +86,17 @@ class SinglyLinkedList():
             self._head.next = old
 
     def top_front(self):
-        """Return the node from the front of the list."""
+        """Return the value node from the front of the list without
+           removing it.
+        """
         if not self.is_empty():
             return self._head.value
         else:
             return None
 
     def pop_front(self):
-        """Return the node from the front of the list.
-
-        Remove that node from the list.
+        """Return the node from the front of the list and
+           remove that node from the list.
         """
         if not self.is_empty():
             popped = self._head
@@ -123,17 +116,21 @@ class SinglyLinkedList():
             old_tail.next = self._tail
 
     def top_back(self):
-        """Return the value in the node at the back of the list."""
-        return self._tail.value
+        """Return the value in the node at the back of the list without
+           removing the node.
+        """
+        if not self.is_empty():
+            self._tail.value
+        else:
+            return None
 
     def pop_back(self):
-        """Return the value of the node at the back of the list.
-
-        Remove that node from the list.
+        """Return the value of the node at the back of the list and
+           remove that node from the list.
         """
         if self.is_empty():
             return None
-        if self._head == self._tail:
+        elif self._head == self._tail:
             val = self._head.value
             self._head = None
             self._tail = None
@@ -160,48 +157,34 @@ class SinglyLinkedList():
                 current_node = current_node.next
         return False
 
-    def erase(self, target):
-        """Remove a node containing a value from the list."""
+    def erase(self, key):
+        """Remove a node containing the key value from the list."""
         if self.is_empty():
-            return  # is this right?
+            return None
 
-        if self._head.value == target:
+        if self._head.value == key:
             self._head = self._head.next
 
         else:
-            prev, current = self._traverse_to_value(target)
+            prev, current = self._traverse_to_value(key)
             if current is not None:
                 prev.next = current.next
                 if prev.next is None:
                     self._tail = prev
+        return None
 
     def is_empty(self):
         """Return True if list is empty, false otherwise.
-
-        >>> l = SinglyLinkedList()
-        >>> l.is_empty
-        True
-
-        >>> l = SinglyLinkedList()
-        >>> l.push_front('TestNode')
-        >>> l.is_empty
-        False.
         """
-        if self._head is None:
-            return True
-        else:
-            return False
+        return self._head is None
 
     def add_before(self, target, value):
-        """Add node to a before a value list.
-
-        Do nothing if value is not in the list.
+        """Add a node before a key and do nothing if value is not in the list.
         """
         if self.is_empty():
             return
-        if self._head.value == target:
+        elif self._head.value == target:
             self.push_front(value)
-
         else:
             prev, _next = self._traverse_to_value(target)
             if _next is not None:
@@ -230,11 +213,11 @@ class SinglyLinkedList():
         """
         # if empty list return
         if self.is_empty():
-            return
+            return None
 
         # if this is a single element list, return
         if self._tail == self._head:
-            return
+            return None
 
         # if this is a multi-element list loop
         else:
@@ -256,10 +239,11 @@ class SinglyLinkedList():
                 current.next = prev
 
             self._head = current
+        return None
 
     def _traverse_to_node(self, target):
         """Return the node in the linked list and it's prior node."""
-        # loop throuhgh the list for the
+        # loop through the list for the
         # node pointing to node
         prev = None
         current = self._head

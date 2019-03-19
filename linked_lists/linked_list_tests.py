@@ -131,7 +131,7 @@ class Test_List_Modification(unittest.TestCase):
         self.llist = push_back_all(self.elements)
 
     def test_top_front(self):
-        """Test top_back behaves appropriately."""
+        """Test top_front behaves appropriately."""
         self.assertEqual(self.llist.top_front(), 'A')
         self.assertEqual(self.llist._head.value, 'A')
         self.assertEqual(pop_front_all(self.llist), self.elements)
@@ -139,6 +139,7 @@ class Test_List_Modification(unittest.TestCase):
     def test_top_back(self):
         """Test top_back behaves appropriately."""
         self.assertEqual(self.llist.top_back(), 'E')
+        self.assertEqual(self.llist._head.value, 'E')
         self.assertIsNone(self.llist._tail.next)
         self.assertEqual(pop_front_all(self.llist), self.elements)
 
